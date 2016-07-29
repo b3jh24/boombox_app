@@ -1,4 +1,4 @@
-/*
+/*//
  *   C++ sockets on Unix and Windows
  *   Copyright (C) 2002
  *
@@ -24,12 +24,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <arpa/inet.h>
-
-//#include "RequestCompleted_orig.h"
-//#include "src_gen/RequestCompleted.pb.h"	//.proto stuff
 #include "src_gen/Boombox_HTLx_Messaging.pb.h"
 
-const int RCVBUFSIZE = 32;    // Size of receive buffer
+const int RCVBUFSIZE = 4;    // Size of receive buffer (bytes = 32 bits a la uint32_t)
 
 using namespace std;
 
@@ -108,11 +105,10 @@ int main(int argc, char *argv[]) {
 
 
 			//Now receive the transfer request from the BOOM Box
-			cout << "\n\nTransfer Request..." << endl;
 			uint32_t no_transferID;
 			uint32_t no_startAddr;
 			uint32_t no_blocksInTrans;
-
+			cout << "\n\nTransfer Request..." << endl;
 			sock.recv(&no_transferID, RCVBUFSIZE);
 			sock.recv(&no_startAddr, RCVBUFSIZE);
 			sock.recv(&no_blocksInTrans, RCVBUFSIZE);
@@ -122,8 +118,9 @@ int main(int argc, char *argv[]) {
 			uint32_t ho_blocksInTrans = ntohl(no_blocksInTrans);
 
 			//DEBUG
-			cout << "TransferID: " << ho_transferID;
+			cout << "\nTransferID: " << ho_transferID;
 			cout << "\nStart Addr: " << ho_startAddr << endl;
+			cout << "Blocks in Transfer: " << ho_blocksInTrans << endl;
 
 
 			//Now we pretend to send frames to the BOOM Box...

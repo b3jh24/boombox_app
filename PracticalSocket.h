@@ -181,6 +181,7 @@ public:
 	 */
 	unsigned short getForeignPort() throw (SocketException);
 
+
 protected:
 	CommunicatingSocket(int type, int protocol) throw (SocketException);
 	CommunicatingSocket(int newConnSD);
